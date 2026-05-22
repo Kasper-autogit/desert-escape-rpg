@@ -7,7 +7,10 @@ public class Player {
     // Player health points
     int hp;
 
-    // Player attack damage
-    int attack;
+    // Minimum attack damage
+    int minAttack;
+
+    // Maximum attack damage
+    int maxAttack;
 
 }

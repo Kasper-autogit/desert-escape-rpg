@@ -7,7 +7,10 @@ public class Enemy {
     // Enemy health points
     int hp;
 
-    // Enemy attack damage
-    int attack;
+    // Minimum attack damage
+    int minAttack;
+
+    // Maximum attack damage
+    int maxAttack;
 
 }
