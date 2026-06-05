@@ -309,13 +309,17 @@ public class Main {
             // SUN DAMAGE
             // =========================
 
-            hero.hp = hero.hp - 5;
+            if (SandRaider.hp > 0) {
 
-            System.out.println("\nThe burning desert sun drains your energy!");
+                hero.hp = hero.hp - 5;
 
-            System.out.println("-5 HP from heat.");
+                System.out.println("\nThe burning desert sun drains your energy!");
 
-            System.out.println("Hero HP: " + hero.hp);
+                System.out.println("-5 HP from heat.");
+
+                System.out.println("Hero HP: " + hero.hp);
+
+            }
 
         }
 
@@ -330,11 +334,16 @@ public class Main {
             System.out.println("You inch closer toward safety...");
 
             // Victory reward heal
+
+            hero.hp = Math.min(hero.hp + 20, 75);
+
+
             hero.hp = hero.hp + 20;
 
-            System.out.println("\nYou recover 20 HP after the battle!");
+            System.out.println("\nYou recover + 20 hp after the battle!");
 
             System.out.println("Hero HP: " + hero.hp);
+
 
             // =========================
             // SECOND ENEMY
@@ -487,6 +496,13 @@ public class Main {
 
                 }
 
+                // Invalid input
+                else {
+
+                    System.out.println("\nInvalid choice!");
+
+                }
+
                 // =========================
                 // GIANT SAND SLUG TURN
                 // =========================
@@ -561,13 +577,302 @@ public class Main {
                 // SUN DAMAGE
                 // =========================
 
-                hero.hp = hero.hp - 5;
+                if (SandSlug.hp > 0) {
 
-                System.out.println("\nThe desert heat continues to burn you!");
+                    hero.hp = hero.hp - 5;
 
-                System.out.println("-5 HP from heat.");
+                    System.out.println("\nThe desert heat continues to burn you!");
+
+                    System.out.println("-5 HP from heat.");
+
+                    System.out.println("Hero HP: " + hero.hp);
+
+                }
+
+            }
+
+            // =========================
+            // SECOND ENEMY DEFEATED
+            // =========================
+
+            if (hero.hp > 0) {
+
+                System.out.println("\nYou defeated the Giant Sand Slug!");
+
+                System.out.println("The path forward begins to reveal itself...");
+
+                // Victory reward heal
+                hero.hp = hero.hp = 75;
+
+                System.out.println("\nYou recover all HP after the battle!");
 
                 System.out.println("Hero HP: " + hero.hp);
+
+                // =========================
+                // FINAL BOSS
+                // =========================
+
+                Enemy BossScorpion = new Enemy();
+
+                BossScorpion.name = "Boss Scorpion";
+                BossScorpion.hp = 120;
+
+                // Boss damage range
+                BossScorpion.minAttack = 10;
+                BossScorpion.maxAttack = 18;
+
+                System.out.println("\nThe desert suddenly grows silent...");
+                System.out.println("A massive Boss Scorpion rises from the dunes!");
+                System.out.println("This is your final fight for survival!");
+
+                // =========================
+                // FINAL BOSS BATTLE LOOP
+                // =========================
+
+                while (hero.hp > 0 && BossScorpion.hp > 0) {
+
+                    System.out.println("\nEnemy Name: " + BossScorpion.name);
+                    System.out.println("Enemy HP: " + BossScorpion.hp);
+                    System.out.println("Enemy Attack Range: "
+                            + BossScorpion.minAttack + " - "
+                            + BossScorpion.maxAttack);
+
+                    System.out.println("\nChoose an action:");
+                    System.out.println("1. Attack");
+                    System.out.println("2. Search for Water");
+                    System.out.println("3. Run");
+
+                    int choice = input.nextInt();
+
+                    // =========================
+                    // ATTACK
+                    // =========================
+
+                    if (choice == 1) {
+
+                        // Player miss chance
+                        int missChance = (int)(Math.random() * 100);
+
+                        if (missChance < 20) {
+
+                            System.out.println("\nYou lunge forward but stumble in the sand!");
+
+                            System.out.println("*** MISS ***");
+
+                        }
+
+                        else {
+
+                            // Boss dodge chance
+                            int dodgeChance = (int)(Math.random() * 100);
+
+                            if (dodgeChance < 10) {
+
+                                System.out.println("\nThe Boss Scorpion snaps backward and dodges!");
+
+                            }
+
+                            else {
+
+                                int damage = (int)(Math.random()
+                                        * (hero.maxAttack - hero.minAttack + 1))
+                                        + hero.minAttack;
+
+                                // Crit chance
+                                int critChance = (int)(Math.random() * 100);
+
+                                if (critChance < 15) {
+
+                                    damage = damage * 2;
+
+                                    System.out.println("\nCRITICAL HIT!");
+
+                                }
+
+                                BossScorpion.hp = BossScorpion.hp - damage;
+
+                                if (BossScorpion.hp < 0) {
+
+                                    BossScorpion.hp = 0;
+
+                                }
+
+                                System.out.println("\nYou strike the Boss Scorpion!");
+
+                                System.out.println("You deal "
+                                        + damage + " damage!");
+
+                                System.out.println("Enemy HP: " + BossScorpion.hp);
+
+                            }
+
+                        }
+
+                    }
+
+                    // =========================
+                    // SEARCH WATER
+                    // =========================
+
+                    else if (choice == 2) {
+
+                        int waterChance = (int)(Math.random() * 100);
+
+                        if (waterChance < 50) {
+
+                            hero.hp = hero.hp + 12;
+
+                            System.out.println("\nYou find one last pocket of water!");
+
+                            System.out.println("+12 HP");
+
+                            System.out.println("Hero HP: " + hero.hp);
+
+                        }
+
+                        else {
+
+                            System.out.println("\nThe sand is dry... no water found.");
+
+                        }
+
+                    }
+
+                    // =========================
+                    // RUN
+                    // =========================
+
+                    else if (choice == 3) {
+
+                        System.out.println("\nThere is nowhere left to run!");
+
+                    }
+
+                    // Invalid input
+                    else {
+
+                        System.out.println("\nInvalid choice!");
+
+                    }
+
+                    // =========================
+                    // BOSS SCORPION TURN
+                    // =========================
+
+                    if (BossScorpion.hp > 0) {
+
+                        // Random boss move
+                        int bossMove = (int)(Math.random() * 100);
+
+                        // Poison Sting special move
+                        if (bossMove < 40) {
+
+                            System.out.println("\nSPECIAL MOVE: Poison Sting!");
+
+                            int poisonDamage = 4;
+
+                            hero.hp = hero.hp - poisonDamage;
+
+                            System.out.println("The poison burns through your body!");
+
+                            System.out.println("-4 poison damage!");
+
+                            System.out.println("Hero HP: " + hero.hp);
+
+                        }
+
+                        // Normal attack
+                        else {
+
+                            // Boss miss chance
+                            int bossMiss = (int)(Math.random() * 100);
+
+                            if (bossMiss < 15) {
+
+                                System.out.println("\nThe Boss Scorpion misses with its claws!");
+
+                            }
+
+                            else {
+
+                                // Player dodge chance
+                                int playerDodge = (int)(Math.random() * 100);
+
+                                if (playerDodge < 15) {
+
+                                    System.out.println("\nYou dodge the Boss Scorpion attack!");
+
+                                }
+
+                                else {
+
+                                    int bossDamage = (int)(Math.random()
+                                            * (BossScorpion.maxAttack
+                                            - BossScorpion.minAttack + 1))
+                                            + BossScorpion.minAttack;
+
+                                    // Boss crit chance
+                                    int bossCrit = (int)(Math.random() * 100);
+
+                                    if (bossCrit < 10) {
+
+                                        bossDamage = bossDamage * 2;
+
+                                        System.out.println("\nBOSS SCORPION CRITICAL HIT!");
+
+                                    }
+
+                                    hero.hp = hero.hp - bossDamage;
+
+                                    System.out.println("\nThe Boss Scorpion strikes with its claws!");
+
+                                    System.out.println("The attack deals "
+                                            + bossDamage + " damage!");
+
+                                    System.out.println("Hero HP: " + hero.hp);
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                    // =========================
+                    // SUN DAMAGE
+                    // =========================
+
+                    if (BossScorpion.hp > 0) {
+
+                        hero.hp = hero.hp - 5;
+
+                        System.out.println("\nThe desert sun burns hotter than ever!");
+
+                        System.out.println("-5 HP from heat.");
+
+                        System.out.println("Hero HP: " + hero.hp);
+
+                    }
+
+                }
+
+                // =========================
+                // FINAL VICTORY SCREEN
+                // =========================
+
+                if (hero.hp > 0) {
+
+                    System.out.println("\n=================================");
+                    System.out.println("        YOU SURVIVED!");
+                    System.out.println("=================================");
+                    System.out.println("The Boss Scorpion collapses into the sand.");
+                    System.out.println("You discover an oasis beyond the dunes.");
+                    System.out.println("After a brutal journey, the Wanderer escapes the desert.");
+                    System.out.println("\nThanks for playing Kasper Desert Survival RPG!");
+                    System.out.println("Final HP: " + hero.hp);
+
+                }
 
             }
 
