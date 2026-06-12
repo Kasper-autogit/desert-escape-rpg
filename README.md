@@ -16,6 +16,13 @@ Or run the executable JAR:
 
 java -jar KasperDesertSurvivalRPG.jar
 
+## Repository
+
+GitHub Repository:
+
+https://github.com/Kasper-autogit/desert-escape-rpg
+
+
 ## Game Theme
 
 You awaken alone in the desert with little water, can you survive?
